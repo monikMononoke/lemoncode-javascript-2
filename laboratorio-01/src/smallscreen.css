@@ -10,7 +10,7 @@ body {
 }
 
 .top-nav>.center , .right {
-    visibility: hidden;
+    display: none;
 }
 
 .top-nav {
@@ -19,9 +19,8 @@ body {
     margin-bottom: 1rem;
 }
 
-.left img {
-    display: flex;
-    justify-content: center;
+.top-nav a {
+    margin: 0 auto;
 }
 
 h1 {
@@ -32,20 +31,12 @@ h1 {
 }
 
 .grid-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    grid-template-columns: auto;
 }
 
 .bottom-nav {
     display: flex;
     flex-direction: column;
-}
-
-.bottom-nav a {
-    color: lightgrey;
-    text-decoration: none;
 }
 
 .bottom-nav img {
@@ -63,6 +54,8 @@ h1 {
     padding-top: 1rem;
     padding-bottom: 1rem;
     align-items: center;
+    color: lightgrey;
+    text-decoration: none;
     border-bottom: 1px solid lightgray;
 }
 }
