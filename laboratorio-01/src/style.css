@@ -9,16 +9,16 @@ body {
     margin: 0;
 }
 
+header {
+    position: sticky;
+    top: 0;
+}
 .top-nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    overflow: hidden;
     background-color: white;
-    position: fixed; 
-    top: 0; 
-    width: 100%;
     border-bottom: 1px solid black;
     padding: .50rem;
 }
