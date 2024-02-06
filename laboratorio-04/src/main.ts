@@ -1,0 +1,63 @@
+//variable que contiene el contador
+let numeroActual : number = 1;
+
+//función principal
+//actualiza el turno en el elemento h1
+//en h1 he cambiado class por id para que me funcione el código
+function actualizarNumero() {
+    const numeroTurno = document.getElementById("numero-turno");
+    if(numeroTurno !== null && numeroTurno !== undefined) {
+        numeroTurno.innerHTML = numeroActual.toString().padStart(2, '0');
+    }
+};
+
+//botón para introducir un número a elección del operario
+const elegirBtn = document.getElementById("boton-elegir");
+if(elegirBtn !== null && elegirBtn !== undefined) {
+elegirBtn.addEventListener("click", () => {
+    const elementoInput = (document.getElementById("elegir-turno") as HTMLInputElement).value;
+    numeroActual = parseInt(elementoInput);
+    actualizarNumero();
+});
+};
+
+//botón para disminuir el valor del contador
+const anteriorBtn = document.getElementById("anterior");
+if(anteriorBtn !== null && anteriorBtn !== undefined) {
+anteriorBtn.addEventListener("click", () => {
+    if(numeroActual > 1) {
+        numeroActual--;
+        actualizarNumero();
+    }
+});
+};
+
+//botón para aumentar el valor del contador
+const siguienteBtn = document.getElementById("siguiente");
+if(siguienteBtn !== null && siguienteBtn !== undefined) {
+siguienteBtn.addEventListener("click", () => {
+        numeroActual++;
+        actualizarNumero();
+    });
+};
+
+
+//botón para resetear el valor del contador
+const resetearBtn = document.getElementById("resetear");
+if(resetearBtn !== null && resetearBtn !== undefined) {
+resetearBtn.addEventListener("click", () => {
+    numeroActual = 1;
+    actualizarNumero();
+});
+};
+
+
+
+
+
+
+
+
+
+
+
