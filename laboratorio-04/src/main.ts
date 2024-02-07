@@ -15,11 +15,13 @@ function actualizarNumero() {
 const elegirBtn = document.getElementById("boton-elegir");
 if(elegirBtn !== null && elegirBtn !== undefined) {
 elegirBtn.addEventListener("click", () => {
-    const elementoInput = (document.getElementById("elegir-turno") as HTMLInputElement).value;
-    numeroActual = parseInt(elementoInput);
+    const elementoInput = document.getElementById("elegir-turno");
+    if(elementoInput !== null && elementoInput !== undefined && elementoInput instanceof HTMLInputElement) {
+    numeroActual = parseInt(elementoInput.value);
     actualizarNumero();
+    }
 });
-};
+}
 
 //botón para disminuir el valor del contador
 const anteriorBtn = document.getElementById("anterior");
@@ -41,15 +43,17 @@ siguienteBtn.addEventListener("click", () => {
     });
 };
 
+//función que maneja el botón para resetear
+function handleReset() {
+    numeroActual = 1;
+    actualizarNumero(); 
+}
 
 //botón para resetear el valor del contador
 const resetearBtn = document.getElementById("resetear");
-if(resetearBtn !== null && resetearBtn !== undefined) {
-resetearBtn.addEventListener("click", () => {
-    numeroActual = 1;
-    actualizarNumero();
-});
-};
+if(resetearBtn !== null && resetearBtn !== undefined && resetearBtn instanceof HTMLButtonElement) {
+resetearBtn.addEventListener("click", () => handleReset());
+}
 
 
 
