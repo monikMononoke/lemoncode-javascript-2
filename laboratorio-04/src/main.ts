@@ -1,6 +1,7 @@
 //variable que contiene el contador
 let numeroActual : number = 1;
 
+
 //función principal
 //actualiza el turno en el elemento h1
 //en h1 he cambiado class por id para que me funcione el código
@@ -11,37 +12,54 @@ function actualizarNumero() {
     }
 };
 
-//botón para introducir un número a elección del operario
-const elegirBtn = document.getElementById("boton-elegir");
-if(elegirBtn !== null && elegirBtn !== undefined) {
-elegirBtn.addEventListener("click", () => {
+
+
+////función que maneja el botón para elegir turno
+function handleElegir() {
     const elementoInput = document.getElementById("elegir-turno");
     if(elementoInput !== null && elementoInput !== undefined && elementoInput instanceof HTMLInputElement) {
     numeroActual = parseInt(elementoInput.value);
     actualizarNumero();
     }
-});
 }
 
-//botón para disminuir el valor del contador
-const anteriorBtn = document.getElementById("anterior");
-if(anteriorBtn !== null && anteriorBtn !== undefined) {
-anteriorBtn.addEventListener("click", () => {
+//botón para introducir un número a elección del operario
+const elegirBtn = document.getElementById("boton-elegir");
+if(elegirBtn !== null && elegirBtn !== undefined && elegirBtn instanceof HTMLButtonElement) {
+elegirBtn.addEventListener("click", () => handleElegir());
+}
+
+
+
+//función que maneja el botón anteriotBtn
+function handleAnterior() {
     if(numeroActual > 1) {
         numeroActual--;
         actualizarNumero();
     }
-});
-};
+}
+
+//botón para disminuir el valor del contador
+const anteriorBtn = document.getElementById("anterior");
+if(anteriorBtn !== null && anteriorBtn !== undefined && anteriorBtn instanceof HTMLButtonElement) {
+anteriorBtn.addEventListener("click", () => handleAnterior());
+}
+
+
+
+//función que maneja el botón siguienteButn
+function handleSiguiente() {
+    numeroActual++;
+    actualizarNumero();
+}
 
 //botón para aumentar el valor del contador
 const siguienteBtn = document.getElementById("siguiente");
-if(siguienteBtn !== null && siguienteBtn !== undefined) {
-siguienteBtn.addEventListener("click", () => {
-        numeroActual++;
-        actualizarNumero();
-    });
-};
+if(siguienteBtn !== null && siguienteBtn !== undefined && siguienteBtn instanceof HTMLButtonElement) {
+siguienteBtn.addEventListener("click", () => handleSiguiente());
+}
+
+
 
 //función que maneja el botón para resetear
 function handleReset() {
