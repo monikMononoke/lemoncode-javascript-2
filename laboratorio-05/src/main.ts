@@ -67,34 +67,40 @@ const setPuntosTotales = (sumarPunto : number) =>  {
 }
 
 const evaluarResultado = () => {
-    if(puntosTotales > 6 && puntosTotales < 8) {
-        return `Has ganado!!!`;
-    } else {
-        return `Uyyyy! Por poco!`;
-    }
+    if(puntosTotales < 4) {
+        return `Has sido muy conservador!`;
+    } 
+    if(puntosTotales == 5) {
+        return `Te ha entrado el canguelo eh?`;
+    } 
+    if(puntosTotales == 6 || puntosTotales == 7) {
+        return `Casi casi...`;
+    } 
+    if(puntosTotales == 7.5) {
+        return `! Lo has clavado! Enhorabuena!`;
+    } 
+    return puntosTotales.toString();
 }
 
-const devolverResultado = () => {
+const devolverResultado = (evaluacion : string) => {
     const resultado = document.getElementById("resultado");
     if(resultado && resultado instanceof HTMLDivElement) {
-        resultado.innerHTML = evaluarResultado();
+        resultado.innerHTML = evaluacion;
     }
 }
 
-const terminarJuego = () => {
-    let evaluacionPuntos = puntosTotales;
-    if(evaluacionPuntos > 7.5) {
+const gestionarGameOver = () => {
+    if(puntosTotales > 7.5) {
         deshabilitarBotonDameCarta();
         return `Te has pasado! Tienes ${puntosTotales} puntos!`;
     } else {
-        return `Puntos: ${puntosTotales.toString()} `;
+        return puntosTotales.toString();
     }
 }
-
-const mostrarPuntos = (finJuego : string) => {
+const mostrarPuntos = (funcGameOver : string) => {
     const puntos = document.getElementById("puntuacion");
     if(puntos && puntos instanceof HTMLDivElement) {
-        puntos.innerHTML = finJuego;
+        puntos.innerHTML = funcGameOver;
     }
 } 
 
@@ -112,14 +118,14 @@ const dameCarta = () => {
     pintarCarta(urlCarta);
     const puntosSumados = sumarPunto(carta);
     setPuntosTotales(puntosSumados);
-    evaluarResultado();
-    const finJuego = terminarJuego();
-    mostrarPuntos(finJuego);
+    const funcGameOver = gestionarGameOver();
+    mostrarPuntos(funcGameOver);
 };
 
 const mePlanto = ()  => {
+    const evaluacion = evaluarResultado()
+    devolverResultado(evaluacion);
     deshabilitarBotonDameCarta();
-    devolverResultado();
 }
 
 const botonDameCarta = document.getElementById("dame-carta");
