@@ -67,7 +67,7 @@ const setPuntosTotales = (sumarPunto : number) =>  {
 }
 
 const evaluarResultado = () => {
-    if(puntosTotales < 4) {
+    if(puntosTotales <= 4) {
         return `Has sido muy conservador!`;
     } 
     if(puntosTotales == 5) {
