@@ -14,7 +14,7 @@ function actualizarNumero() {
 
 
 
-////función que maneja el botón para elegir turno
+//función que maneja el botón para elegir turno
 function handleElegir() {
     const elementoInput = document.getElementById("elegir-turno");
     if(elementoInput !== null && elementoInput !== undefined && elementoInput instanceof HTMLInputElement) {

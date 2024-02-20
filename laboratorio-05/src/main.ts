@@ -66,7 +66,7 @@ const setPuntosTotales = (sumarPunto : number) =>  {
     puntosTotales = sumarPunto;
 }
 
-const evaluarResultado = () => {
+const evaluarResultadoMePlanto = () => {
     if(puntosTotales <= 4) {
         return `Has sido muy conservador!`;
     } 
@@ -82,25 +82,31 @@ const evaluarResultado = () => {
     return puntosTotales.toString();
 }
 
-const devolverResultado = (evaluacion : string) => {
+const devolverResultadoMePlanto = (evaluacion : string) => {
     const resultado = document.getElementById("resultado");
     if(resultado && resultado instanceof HTMLDivElement) {
         resultado.innerHTML = evaluacion;
     }
 }
 
-const gestionarGameOver = () => {
-    if(puntosTotales > 7.5) {
+const gestionarPartida = () => {
+    let mensaje = '';
+
+    if(puntosTotales === 7.5) {
+        mensaje = `Lo has clavado!!! Has ganado la partida!`;
+    } else if(puntosTotales > 7.5){
+        mensaje =  `Te has pasado! Tienes ${puntosTotales} puntos!`
         deshabilitarBotonDameCarta();
-        return `Te has pasado! Tienes ${puntosTotales} puntos!`;
     } else {
-        return puntosTotales.toString();
+        mensaje = puntosTotales.toString();
     }
+    return mensaje;
 }
-const mostrarPuntos = (funcGameOver : string) => {
+
+const mostrarPuntos = (mensaje : string) => {
     const puntos = document.getElementById("puntuacion");
     if(puntos && puntos instanceof HTMLDivElement) {
-        puntos.innerHTML = funcGameOver;
+        puntos.innerHTML = mensaje;
     }
 } 
 
@@ -118,13 +124,13 @@ const dameCarta = () => {
     pintarCarta(urlCarta);
     const puntosSumados = sumarPunto(carta);
     setPuntosTotales(puntosSumados);
-    const funcGameOver = gestionarGameOver();
-    mostrarPuntos(funcGameOver);
+    const mensaje = gestionarPartida();
+    mostrarPuntos(mensaje);
 };
 
 const mePlanto = ()  => {
-    const evaluacion = evaluarResultado()
-    devolverResultado(evaluacion);
+    const evaluacion = evaluarResultadoMePlanto()
+    devolverResultadoMePlanto(evaluacion);
     deshabilitarBotonDameCarta();
 }
 
