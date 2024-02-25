@@ -8,7 +8,7 @@ const generarNumeroCarta = (numeroAleatorio: number) => {
     return numeroAleatorio > 7 ? numeroAleatorio + 2 : numeroAleatorio;
 };
    
-const dameUrlCarta = (carta : number) => {
+const mostrarCarta = (carta : number) => {
     let urlCarta = "";
     switch (carta) {
         case 1:
@@ -73,7 +73,7 @@ const evaluarResultadoMePlanto = () => {
     if(puntosTotales == 5) {
         return `Te ha entrado el canguelo eh?`;
     } 
-    if(puntosTotales == 6 || puntosTotales == 7) {
+    if(puntosTotales == 6 || puntosTotales == 6.5 || puntosTotales == 7) {
         return `Casi casi...`;
     } 
     if(puntosTotales == 7.5) {
@@ -89,38 +89,62 @@ const devolverResultadoMePlanto = (evaluacion : string) => {
     }
 }
 
-const gestionarPartida = () => {
+const gestionarPartida = () :string => {
     let mensaje = '';
 
     if(puntosTotales === 7.5) {
-        mensaje = `Lo has clavado!!! Has ganado la partida!`;
+        mensaje = `Lo has clavado!!! Tienes ${puntosTotales}! Has ganado la partida!`;
+        deshabilitarBotonDameCarta();
+        deshabilitarBotonMePlanto();
     } else if(puntosTotales > 7.5){
         mensaje =  `Te has pasado! Tienes ${puntosTotales} puntos!`
         deshabilitarBotonDameCarta();
+        deshabilitarBotonMePlanto();
     } else {
         mensaje = puntosTotales.toString();
     }
     return mensaje;
 }
 
-const mostrarPuntos = (mensaje : string) => {
+const mostrarPuntos = (mensaje : string)  => {
     const puntos = document.getElementById("puntuacion");
     if(puntos && puntos instanceof HTMLDivElement) {
         puntos.innerHTML = mensaje;
     }
 } 
 
-const deshabilitarBotonDameCarta = () => {
-    const botonDeshabilitado = document.getElementById("dame-carta");
-    if(botonDeshabilitado && botonDeshabilitado instanceof HTMLButtonElement) {
-        botonDeshabilitado.disabled = true;
+const deshabilitarBotonDameCarta = ()  => {
+    const botonDameCartaDeshabilitado = document.getElementById("dame-carta");
+    if(botonDameCartaDeshabilitado && botonDameCartaDeshabilitado instanceof HTMLButtonElement) {
+        botonDameCartaDeshabilitado.disabled = true;
     }  
+}
+
+const deshabilitarBotonMePlanto = () => {
+    const botonMePlantoDeshabilitado = document.getElementById("me-planto");
+    if(botonMePlantoDeshabilitado && botonMePlantoDeshabilitado instanceof HTMLButtonElement) {
+        botonMePlantoDeshabilitado.disabled = true;
+    }
+}
+
+const habilitarDameCarta = () => {
+    const habilitarDameCarta = document.getElementById("dame-carta");
+    if(habilitarDameCarta && habilitarDameCarta instanceof HTMLButtonElement) {
+        habilitarDameCarta.disabled = false;
+    }
+}
+
+const habilitarMePlanto = () => {
+    const habilitarMePlanto = document.getElementById("me-planto");
+    if(habilitarMePlanto && habilitarMePlanto instanceof HTMLButtonElement) {
+        habilitarMePlanto.disabled = false;
+    }
 }
 
 const dameCarta = () => {
     const numeroAleatorio = generarNumeroAleatorio();
     const carta = generarNumeroCarta(numeroAleatorio);
-    const urlCarta = dameUrlCarta(carta);
+    const urlCarta = mostrarCarta(carta);
     pintarCarta(urlCarta);
     const puntosSumados = sumarPunto(carta);
     setPuntosTotales(puntosSumados);
@@ -134,6 +158,16 @@ const mePlanto = ()  => {
     deshabilitarBotonDameCarta();
 }
 
+const nuevaPartida = () => {
+    habilitarDameCarta();
+    habilitarMePlanto();
+    puntosTotales = 0;
+    setPuntosTotales(puntosTotales);
+    const puntosNuevos = puntosTotales.toString();
+    mostrarPuntos(puntosNuevos);
+    devolverResultadoMePlanto('');
+}
+
 const botonDameCarta = document.getElementById("dame-carta");
 if(botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement){
     botonDameCarta.addEventListener("click", dameCarta);
@@ -142,4 +176,9 @@ if(botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta ins
 const botonMePlanto = document.getElementById("me-planto");
 if(botonMePlanto !== null && botonMePlanto !== undefined && botonMePlanto instanceof HTMLButtonElement) {
     botonMePlanto.addEventListener("click", mePlanto);
+}
+
+const botonNuevaPartida = document.getElementById("nueva-partida");
+if(botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement){
+    botonNuevaPartida.addEventListener("click", nuevaPartida);
 }
