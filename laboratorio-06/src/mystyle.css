@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Protest+Riot&display=swap');
+
+
+body {
+    box-sizing: border-box;
+    background-color: darkslategray;
+}
+
+h1 {
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.imagenes {
+    width: 500px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin-left: 30px;
+}
+
+img {
+    border-radius: 15px;
+}
+
+.botones {
+    width: 500px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 30px;
+    gap: 30px;
+}
+
+button {
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    background:  lightseagreen;
+    font-size: 18px;
+    font-family: monospace;
+}
+
+button:hover {
+    background: rgb(251, 251, 116);
+    height: 37px;
+    width: 147px;
+}
+
+.puntos {
+    width: 500px;
+    height: 50px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    justify-items: start;
+    margin-left: 20px;
+    font-size: 18px;
+    font-family: Courier New, monospace;
+    font-weight: 500;
+    color: whitesmoke;
+    padding: 1rem;
+}
+
