@@ -8,9 +8,8 @@ export const obtenerPuntoCarta = (carta: number) => {
     return carta > 7 ? 0.5 : carta;
 }
 
-export const sumarPunto = (carta : number) => {
-    const punto = obtenerPuntoCarta(carta);
-    return puntos.puntosTotales + punto;
+export const sumarPunto = (puntoDeLaCarta : number) => {
+    return puntos.puntosTotales + puntoDeLaCarta;
 }
 
 export const setPuntosTotales = (sumarPunto : number) =>  {

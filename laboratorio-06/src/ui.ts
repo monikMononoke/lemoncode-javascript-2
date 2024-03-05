@@ -1,7 +1,8 @@
 import {puntos, generarNumeroCarta} from "./modelo";
 
 import {generarNumeroAleatorio, sumarPunto, setPuntosTotales, 
-    evaluarResultadoMePlanto} from "./motor";
+    evaluarResultadoMePlanto,
+    obtenerPuntoCarta} from "./motor";
 
 export const mostrarCarta = (carta : number) => {
     let urlCarta = "";
@@ -113,8 +114,8 @@ export const dameCarta = () => {
     const carta = generarNumeroCarta(numeroAleatorio);
     const urlCarta = mostrarCarta(carta);
     pintarCarta(urlCarta);
-    const puntosSumados = sumarPunto(carta);
-    setPuntosTotales(puntosSumados);
+    const puntoDeLaCarta = obtenerPuntoCarta(carta);
+    setPuntosTotales(puntoDeLaCarta);
     const mensaje = gestionarPartida();
     mostrarPuntos(mensaje);
 };
