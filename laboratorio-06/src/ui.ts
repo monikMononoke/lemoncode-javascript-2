@@ -115,7 +115,8 @@ export const dameCarta = () => {
     const urlCarta = mostrarCarta(carta);
     pintarCarta(urlCarta);
     const puntoDeLaCarta = obtenerPuntoCarta(carta);
-    setPuntosTotales(puntoDeLaCarta);
+    const puntosSumados = sumarPunto(puntoDeLaCarta);
+    setPuntosTotales(puntosSumados);
     const mensaje = gestionarPartida();
     mostrarPuntos(mensaje);
 };
