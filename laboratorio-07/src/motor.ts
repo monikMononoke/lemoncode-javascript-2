@@ -1,5 +1,25 @@
 import { puntos } from "./modelo";
 
+
+//type estadoPartida es un tipo creado para las pruebas unitarias
+export type estadoPartida = 
+    'Te has pasado'
+    | 'Lo has clavado'
+    | 'Puedes hacerlo mejor'
+;
+
+
+//gestionarPartidaFalse -> funcion creada para las pruebas unitarias
+export const gestionarPartidaFalsa = (puntosPartida : number) : estadoPartida=> {
+    if(puntosPartida == 7.5) {
+        return 'Lo has clavado'
+    } else if(puntosPartida > 7.5){
+        return 'Te has pasado'
+    } else {
+        return 'Puedes hacerlo mejor';
+    }
+}
+
 export const generarNumeroAleatorio = () => {
     return Math.ceil(Math.random() * 10);
 };

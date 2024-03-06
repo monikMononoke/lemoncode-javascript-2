@@ -1,6 +1,60 @@
 import {describe, it, expect, vi} from "vitest";
 import {generarNumeroCarta, puntos} from "./modelo";
-import {evaluarResultadoMePlanto, obtenerPuntoCarta} from "./motor";
+import {evaluarResultadoMePlanto, obtenerPuntoCarta, gestionarPartidaFalsa, generarNumeroAleatorio} from "./motor";
+
+describe('gestionarPartidaFalsa', () => {
+    it("Debe devolver 'Te has pasado' si los puntos superan 7.5", () => {
+        //Arrange 
+        const puntosPartida : number = 8;
+        const resultadoEsperado = 'Te has pasado';
+
+        //Act
+        const resultado = gestionarPartidaFalsa(puntosPartida);
+
+        //Assert
+        expect(resultado).toBe(resultadoEsperado);
+    })
+
+    it("Debe devolver 'Lo has clavado' si los puntos obtenidos son iguales a 7.5", () => {
+        //Arrange
+        const puntosPartida : number = 7.5;
+        const resultadoEsperado = 'Lo has clavado';
+
+        //Act
+        const resultado = gestionarPartidaFalsa(puntosPartida);
+
+        //Assert
+        expect(resultado).toBe(resultadoEsperado);
+    })
+
+    it("Debe devolver 'Puedes hacerlo mejor' si los puntos obtenidos son menos que 7.5", () => {
+        //Arrange
+        const puntosPartida : number = 6;
+        const resultadoEsperado = 'Puedes hacerlo mejor';
+
+        //Act
+        const resultado = gestionarPartidaFalsa(puntosPartida);
+
+        //Assert
+        expect(resultado).toBe(resultadoEsperado);
+    })
+})
+
+describe('generarNumeroAleatorio', () => {
+    it('Debe devolver un número aleatorio entre 1 y 10', () => {
+        //Arrange 
+        const numeroEsperado : number = 5;
+
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.49);
+
+        //Act 
+        const resultado = generarNumeroAleatorio();
+
+        //Assert
+        expect(resultado).toBe(numeroEsperado);
+    })
+})
+
 
 describe('generarNumeroCarta', () => {
     it('Debe devolver un numero entre 1 y 7, si el número aleatorio es igual o menor a 7', () => {
