@@ -74,8 +74,8 @@ const pacientes: Pacientes[] = [
       },
 ];
 
-const mostrarPaciente = (paciente : Pacientes) => {
-    const div = document.getElementById('pacientes');
+const mostrarPaciente = (paciente : Pacientes, divName: string) => {
+    const div = document.getElementById(divName);
 
     const fichaDiv = document.createElement('div');
     
@@ -108,7 +108,7 @@ const obtenPacientesAsignadosAPediatria = (
   for(let i=0; i<pacientes.length; i++) {
     let paciente = pacientes[i];
     if(paciente.especialidad == 'Pediatra'){
-      mostrarPaciente(paciente);
+      mostrarPaciente(paciente, 'pacientes-menores');
     }
   }
   return pacientes;
@@ -120,7 +120,7 @@ const obtenPacientesAsignadosAPediatriaMenoresADiezAnios = (
   for(let i=0; i<pacientes.length; i++) {
     let paciente = pacientes[i];
     if(paciente.edad < 10){
-      mostrarPaciente(paciente);
+      mostrarPaciente(paciente, 'menores-a-diez');
     }
   }
   return pacientes;
@@ -128,3 +128,5 @@ const obtenPacientesAsignadosAPediatriaMenoresADiezAnios = (
 
 obtenPacientesAsignadosAPediatria(pacientes);
 obtenPacientesAsignadosAPediatriaMenoresADiezAnios(pacientes);
+
+console.log(...pacientes);
