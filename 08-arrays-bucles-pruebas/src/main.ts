@@ -74,16 +74,14 @@ const pacientes: Pacientes[] = [
       },
 ];
 
-
-
-const mostrarPacientes = (paciente : Pacientes, divName : string) => {
+const mostrarPaciente = (paciente : Pacientes) => {
     const div = document.getElementById('pacientes');
+
+    const fichaDiv = document.createElement('div');
     
     const h3 = document.createElement('h3');
     h3.textContent = `Ficha del paciente: ${paciente.nombre} `;
-    
-    const fichaDiv = document.createElement('div');
-
+  
     const datos = document.createElement('p');
     
     datos.innerHTML = `Especialidad: ${paciente.especialidad}.
@@ -93,53 +91,40 @@ const mostrarPacientes = (paciente : Pacientes, divName : string) => {
     Temperatura: ${paciente.temperatura}.
     Edad: ${paciente.edad}`;
 
-    div?.appendChild(h3);
-    fichaDiv.appendChild(h3);
-
+    
     div?.setAttribute('class', 'container');
     fichaDiv.setAttribute('class', 'ficha');
-    fichaDiv.setAttribute('id', divName);
+
+    div?.appendChild(h3);
+    fichaDiv.appendChild(h3);
 
     fichaDiv.appendChild(datos);
     div?.appendChild(fichaDiv);
 }
 
-
 const obtenPacientesAsignadosAPediatria = (
   pacientes: Pacientes[]
-  ): Pacientes[] => {
-  let nuevoArrayPacientesPediatria : Pacientes[] = [];
-    for(let i=0; i<pacientes.length; i++) {
-      if(pacientes[i].especialidad == 'Pediatra') {
-        let paciente = pacientes[i];
-        nuevoArrayPacientesPediatria.push(paciente);
-        mostrarPacientes(paciente, 'pacientes-pediatria'); 
-      }
-    }
-    return nuevoArrayPacientesPediatria
-}
-
-const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (
-  pacientes: Pacientes[]
 ): Pacientes[] => {
-  let nuevoArrayPacientesPediatriaMenoresDeDiez : Pacientes[] = [];
   for(let i=0; i<pacientes.length; i++) {
-    if(pacientes[i].edad < 10) {
-      let paciente = pacientes[i];
-      nuevoArrayPacientesPediatriaMenoresDeDiez.push(paciente);
-      mostrarPacientes(paciente, 'pacientes-menores-a-diez'); 
+    let paciente = pacientes[i];
+    if(paciente.especialidad == 'Pediatra'){
+      mostrarPaciente(paciente);
     }
   }
   return pacientes;
 };
 
+const obtenPacientesAsignadosAPediatriaMenoresADiezAnios = (
+  pacientes: Pacientes[]
+): Pacientes[] => {
+  for(let i=0; i<pacientes.length; i++) {
+    let paciente = pacientes[i];
+    if(paciente.edad < 10){
+      mostrarPaciente(paciente);
+    }
+  }
+  return pacientes;
+};
 
-const botonPediatria = document.getElementById('boton1');
-if(botonPediatria && botonPediatria instanceof HTMLButtonElement) {
-  botonPediatria.addEventListener('click', ()=> obtenPacientesAsignadosAPediatria(pacientes))
-}
-
-const botonMenoresADiez = document.getElementById('boton2');
-if(botonMenoresADiez && botonMenoresADiez instanceof HTMLButtonElement) {
-  botonMenoresADiez.addEventListener('click', () => obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(pacientes))
-}
+obtenPacientesAsignadosAPediatria(pacientes);
+obtenPacientesAsignadosAPediatriaMenoresADiezAnios(pacientes);
