@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/mystyle.css">
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="App">
+      <h2>Lista de pacientes menores: </h2>
+      <button id="boton-menores">Mostrar pacientes menores</button>
+      <div id="pacientes-menores">
+      </div>
+      <hr>
+
+      <h2>Lista de pacientes menores a 10 años: </h2>
+      <button id="boton-menores-diez">Mostrar pacientes menores a diez años</button>
+      <div id="menores-a-diez">
+      </div>
+      <hr>
+
+      <h2>Protocolo de emergencia: </h2>
+      <button id="boton-urgencia">Activar protocolo de urgencia</button>
+      <div id="protocolo">
+      </div>
+
+      <h2>Reasignar pacientes de pediatria a Medico de familia </h2>
+      <button id="boton-reasignar">Reasignar pacientes</button>
+      <div id="pacientes-reasignados">
+      </div>
+      <hr>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
