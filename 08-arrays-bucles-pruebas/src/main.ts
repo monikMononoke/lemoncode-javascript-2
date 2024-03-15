@@ -75,6 +75,7 @@ const pacientes: Pacientes[] = [
 ];
 
 const mostrarPaciente = (paciente : Pacientes, divName: string) => {
+
     const div = document.getElementById(divName);
 
     const fichaDiv = document.createElement('div');
@@ -82,23 +83,36 @@ const mostrarPaciente = (paciente : Pacientes, divName: string) => {
     const h3 = document.createElement('h3');
     h3.textContent = `Ficha del paciente: ${paciente.nombre} `;
   
-    const datos = document.createElement('p');
-    
-    datos.innerHTML = `Especialidad: ${paciente.especialidad}.
-    Nombre: ${paciente.nombre}.
-    Apellidos: ${paciente.apellidos}.  
-    Sexo: ${paciente.sexo}.
-    Temperatura: ${paciente.temperatura}.
-    Edad: ${paciente.edad}`;
+    const parrafoEspecialidad = document.createElement('p');
+    parrafoEspecialidad.textContent = `Especialidad: ${paciente.especialidad}.`;
 
+    const parrafoNombre = document.createElement('p');
+    parrafoNombre.textContent = `Nombre: ${paciente.nombre}.`
     
+    const parrafoApellidos = document.createElement('p');
+    parrafoApellidos.textContent = `Apellidos: ${paciente.apellidos}.`;
+
+    const parrafoSexo = document.createElement('p');
+    parrafoSexo.textContent = `Sexo: ${paciente.sexo}.`;
+    
+    const parrafoTemperatura = document.createElement('p');
+    parrafoTemperatura.textContent = `Temperatura: ${paciente.temperatura}.`;
+     
+    const parrafoEdad = document.createElement('p');
+    parrafoEdad.textContent = `Edad: ${paciente.edad}`;
+
     div?.setAttribute('class', 'container');
     fichaDiv.setAttribute('class', 'ficha');
 
-    div?.appendChild(h3);
     fichaDiv.appendChild(h3);
 
-    fichaDiv.appendChild(datos);
+    fichaDiv.appendChild(parrafoEspecialidad);
+    fichaDiv.appendChild(parrafoNombre);
+    fichaDiv.appendChild(parrafoApellidos);
+    fichaDiv.appendChild(parrafoSexo);
+    fichaDiv.appendChild(parrafoTemperatura);
+    fichaDiv.appendChild(parrafoEdad);
+
     div?.appendChild(fichaDiv);
 }
 
@@ -126,7 +140,46 @@ const obtenPacientesAsignadosAPediatriaMenoresADiezAnios = (
   return pacientes;
 };
 
-obtenPacientesAsignadosAPediatria(pacientes);
-obtenPacientesAsignadosAPediatriaMenoresADiezAnios(pacientes);
+const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
+  let activarProctolo = false;
+  let i = 0;
+  while(pacientes[i].frecuenciaCardiaca < 100 && pacientes[i].temperatura < 39) {
+    activarProctolo = false;
+    if(!activarProctolo) {
+      mostrarPaciente(pacientes[i], 'protocolo');
+    }
+    i++;
+  }
 
-console.log(...pacientes);
+  return activarProctolo;
+};
+
+function obtenerPacientes(funcion : Function, pacientesAObtener : Pacientes[]) {
+  return  funcion(pacientesAObtener);
+}
+
+console.log(pacientes);
+
+const botonObtenerPacientesMenores = document.getElementById('boton-menores');
+if(botonObtenerPacientesMenores && botonObtenerPacientesMenores instanceof HTMLButtonElement) {
+  botonObtenerPacientesMenores.addEventListener('click',function (){
+    obtenerPacientes(obtenPacientesAsignadosAPediatria, pacientes)
+    botonObtenerPacientesMenores.disabled = true;
+    })
+}
+
+const botonObtenerPacientesMenoresADiezAnios = document.getElementById('boton-menores-diez');
+if(botonObtenerPacientesMenoresADiezAnios && botonObtenerPacientesMenoresADiezAnios instanceof HTMLButtonElement) {
+  botonObtenerPacientesMenoresADiezAnios.addEventListener('click',function (){
+    obtenerPacientes(obtenPacientesAsignadosAPediatriaMenoresADiezAnios, pacientes);
+    botonObtenerPacientesMenoresADiezAnios.disabled = true;
+    })
+}
+
+const botonActivarProtocoloUrgencia = document.getElementById('boton-urgencia');
+if(botonActivarProtocoloUrgencia && botonActivarProtocoloUrgencia instanceof HTMLButtonElement) {
+  botonActivarProtocoloUrgencia.addEventListener('click',function (){
+    obtenerPacientes(activarProtocoloUrgencia, pacientes);
+    botonActivarProtocoloUrgencia.disabled = true;
+    })
+}
