@@ -143,20 +143,27 @@ const obtenPacientesAsignadosAPediatria = (
   return pacientesPediatria;
 };
 
-console.log(obtenPacientesAsignadosAPediatria(pacientes))
+console.log(obtenPacientesAsignadosAPediatria(pacientes));
 
 //Apartado 1- pacientes asignados a pediatría menores a diez años
 const obtenPacientesAsignadosAPediatriaMenoresADiezAnios = (
   pacientes: Pacientes[]
 ): Pacientes[] => {
+  let pacientesMenoresADiezAnios : Pacientes[] = [];
   for(let i=0; i<pacientes.length; i++) {
     let paciente = pacientes[i];
     if(paciente.edad < 10){
+      pacientesMenoresADiezAnios = [
+        ...pacientesMenoresADiezAnios,
+        paciente
+      ]
       mostrarPaciente(paciente, 'menores-a-diez');
     }
   }
-  return pacientes;
+  return pacientesMenoresADiezAnios;
 };
+
+console.log(obtenPacientesAsignadosAPediatriaMenoresADiezAnios(pacientes));
 
 //Apartado 2 - activar protocolo de urgencia
 const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
@@ -173,8 +180,8 @@ const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
 console.log(activarProtocoloUrgencia(pacientes));
 
 //Apartado 3 - reasignar pacientes de pediatría
-let pacientesReasignados : Pacientes [] = [];
 const reasignarPacientesMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] => {
+  let pacientesReasignados : Pacientes [] = [];
   for(let i=0; i<pacientes.length; i++) {
     if(pacientes[i].especialidad == 'Pediatra') {
       pacientes[i].especialidad = 'Medico de familia';
@@ -195,7 +202,7 @@ const hayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
   }
   return pacientesAsignadosAPediatria;
 };
-console.log('Hay o no hay pacientes asignados a pediatría: ' ,hayPacientesDePediatria(pacientes));
+console.log('Hay pacientes asignados a pediatría: ' ,hayPacientesDePediatria(pacientes));
 
 //Función genérica para utilizar en los botónes para obtener los pacientes
 function obtenerPacientes(funcion : Function, pacientesAObtener : Pacientes[]) {
