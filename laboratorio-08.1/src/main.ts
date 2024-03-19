@@ -257,10 +257,10 @@ interface NumeroPacientesPorEspecialidad {
 }
 
 let pacientesPorEspecialidad : NumeroPacientesPorEspecialidad = {
-  medicoDeFamilia : 0,
+  medicoDeFamilia: 0,
   pediatria: 0,
   cardiologia: 0,
-};
+}
 
 const cuentaPacientesPorEspecialidad = (pacientes : Pacientes[]): NumeroPacientesPorEspecialidad => {
   for(let i=0; i<pacientes.length; i++) {
@@ -270,6 +270,7 @@ const cuentaPacientesPorEspecialidad = (pacientes : Pacientes[]): NumeroPaciente
         break;
       case 'Pediatra':
         pacientesPorEspecialidad.pediatria++;
+        break;
       case 'Cardiólogo':
         pacientesPorEspecialidad.cardiologia++;
         break;
