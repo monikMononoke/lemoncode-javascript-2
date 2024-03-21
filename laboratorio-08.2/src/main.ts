@@ -103,17 +103,9 @@ console.log('*************************************************************');
 //Apartado 2 - activar protocolo de urgencia
 console.log('APARTADO 2: ');
 
-const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
-  let activarProctolo = false;
-
-  pacientes.some(
-    (paciente: Pacientes) => {
-      if (paciente.frecuenciaCardiaca > 100 && paciente.temperatura > 39) {
-        activarProctolo = true;
-      }
-    })
-  return activarProctolo;
-};
+const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => pacientes.some(
+  (paciente: Pacientes) => paciente.frecuenciaCardiaca > 100 && paciente.temperatura > 39
+);
 
 console.log(activarProtocoloUrgencia(pacientes));
 
@@ -122,19 +114,16 @@ console.log('*************************************************************');
 //Apartado 3 - reasignar pacientes de pediatría a medico de familia
 console.log('APARTADO 3: ');
 
-const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] => {
-  //refactorizado
-  return pacientes.map((paciente) =>
-    (paciente.especialidad === 'Pediatra')
-      ? {
-        ...paciente,
-        especialidad: 'Medico de familia',
-      }
-      : {
-        ...paciente
-      }
-  )
-};
+const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] => pacientes.map((paciente) => paciente.especialidad === 'Pediatra'
+  ? {
+    ...paciente,
+    especialidad: 'Medico de familia',
+  }
+  : {
+    ...paciente
+  }
+);
+
 
 console.log(reasignaPacientesAMedicoFamilia(pacientes));
 
@@ -146,7 +135,8 @@ console.log('APARTADO 4: ');
 const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
   return pacientes.some(
     (paciente: Pacientes) => paciente.especialidad === 'Pediatra')
-};
+}
+
 console.log('El pediatra tiene pacientes? ', HayPacientesDePediatria(pacientes));
 
 console.log('*************************************************************');
@@ -160,36 +150,26 @@ interface NumeroPacientesPorEspecialidad {
   cardiologia: number;
 }
 
+const calcularTotalPorEspecialidad = (pacientes: Pacientes[], especialidad: Especialidad): number => pacientes.reduce(
+  (total: number, paciente: Pacientes): number => {
+    if (paciente.especialidad === especialidad)
+      total = total + 1;
+    return total
+  }, 0
+
+)
 
 const cuentaPacientesPorEspecialidad = (
   pacientes: Pacientes[]
 ): NumeroPacientesPorEspecialidad => {
-  const pediatriaTotal = pacientes.reduce(
-    (total : number, paciente: Pacientes) : number => {
-    if(paciente.especialidad === 'Pediatra') 
-      total = total + 1;
-      return total
-    }, 0
-  )
-  
-  const medicoDeFamiliaTotal = pacientes.reduce(
-    (total : number, paciente: Pacientes) : number => {
-    if(paciente.especialidad === 'Medico de familia') 
-      total = total + 1;
-      return total
-    }, 0
-  )
-  
-  const cardiologiaTotal = pacientes.reduce(
-    (total : number, paciente: Pacientes) : number => {
-    if(paciente.especialidad === 'Cardiólogo') 
-      total = total + 1;
-      return total
-    }, 0
-  )
-  
-  let numeroPacientesPorEspecialidad : NumeroPacientesPorEspecialidad = {
-    medicoDeFamilia : medicoDeFamiliaTotal,
+  const pediatriaTotal = calcularTotalPorEspecialidad(pacientes, "Pediatra");
+
+  const medicoDeFamiliaTotal = calcularTotalPorEspecialidad(pacientes, "Medico de familia");
+
+  const cardiologiaTotal = calcularTotalPorEspecialidad(pacientes, "Cardiólogo")
+
+  let numeroPacientesPorEspecialidad: NumeroPacientesPorEspecialidad = {
+    medicoDeFamilia: medicoDeFamiliaTotal,
     pediatria: pediatriaTotal,
     cardiologia: cardiologiaTotal
   }
@@ -199,3 +179,5 @@ const cuentaPacientesPorEspecialidad = (
 
 console.log('Objeto con los medicos totales por especialidad: ');
 console.log(cuentaPacientesPorEspecialidad(pacientes));
+
+
