@@ -3,8 +3,17 @@ body {
 }
 
 .carta-boca-abajo {
-  width: 130px;
-  height: 130px;
-  background: #c5fdff;
+  width: 100px;
+  height: 100px;
+  background: #9bd5fa;
   border-radius: 15px;
+  padding: 10px;
+}
+
+.carta-boca-arriba {
+  width: 100px;
+  height: 100px;
+  background: #d489e9;
+  border-radius: 15px;
+  padding: 10px;
 }

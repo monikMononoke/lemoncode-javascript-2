@@ -13,9 +13,15 @@ export const pintarAnimal = () => {
 
     cartaBocaAbajo.addEventListener("click", () => {
         const imgAnimal = document.createElement('img');
+        imgAnimal.classList.add("carta-boca-arriba");
         imgAnimal.src = "./imagenes/1.png";
         divContenedorImagen.removeChild(cartaBocaAbajo)
         divContenedorImagen.appendChild(imgAnimal);
+
+        setTimeout(() => {
+            divContenedorImagen.removeChild(imgAnimal);
+            divContenedorImagen.appendChild(cartaBocaAbajo)
+        }, 3000)
     })
 }
 
