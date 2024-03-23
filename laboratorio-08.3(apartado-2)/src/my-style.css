@@ -1,0 +1,10 @@
+body {
+  box-sizing: border-box;
+}
+
+.carta-boca-abajo {
+  width: 130px;
+  height: 130px;
+  background: lightblue;
+  border-radius: 15px;
+}
