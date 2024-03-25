@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e4f8fa;
+}
+
+.contenedor-cartas {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(3, auto);
+  justify-content: center;
+  gap: 10px;
+}
+
+.carta-boca-abajo {
+  width: 100px;
+  height: 100px;
+  background: #9bd5fa;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  background: #d489e9;
+  border-radius: 15px;
+  padding: 10px;
+}
