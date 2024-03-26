@@ -6,26 +6,37 @@ body {
   background-color: #e4f8fa;
 }
 
-.contenedor-cartas {
+.contenedor {
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
   justify-content: center;
   gap: 10px;
 }
 
-.carta-boca-abajo {
+.contenedor-carta {
   width: 100px;
   height: 100px;
-  background: #9bd5fa;
-  border-radius: 15px;
-  padding: 10px;
+  transition-timing-function: cubic-bezier(0.1, 0.22, 0.8, 1.13);
+  transform-style: preserve-3d;
 }
 
-img {
+.carta,
+.imagenes {
+  position: absolute;
   width: 100px;
   height: 100px;
-  background: #d489e9;
   border-radius: 15px;
+}
+
+.carta {
+  transition: all 550ms;
+  background: #9bd5fa;
+  transform-style: preserve-3d;
+}
+
+.imagenes {
+  background: #d489e9;
   padding: 10px;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
 }
