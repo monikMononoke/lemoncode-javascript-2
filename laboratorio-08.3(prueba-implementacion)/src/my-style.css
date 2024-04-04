@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e4f8fa;
+}
+
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(3, auto);
+  justify-content: center;
+  gap: 10px;
+}
+
+.contenedor-carta {
+  width: 100px;
+  height: 100px;
+  transition-timing-function: cubic-bezier(0.1, 0.22, 0.8, 1.13);
+  transform-style: preserve-3d;
+}
+
+.carta,
+.imagenes {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+}
+
+.carta {
+  transition: all 550ms;
+  background: #70b1ed;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.imagenes {
+  background: #c59deb;
+  padding: 10px;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.empezar {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#boton-empezar {
+  width: 180px;
+  height: 45px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 10px;
+  background: #70b1ed;
+  border: 0px;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 3px rgb(110, 144, 206);
+  cursor: pointer;
+}
+
+#boton-empezar:hover {
+  background: #75aadd;
+}
+
+#boton-empezar:active {
+  background-color: #679bcb;
+  box-shadow: 0 3px #6c6bb1;
+  transform: translateY(2px);
+}
