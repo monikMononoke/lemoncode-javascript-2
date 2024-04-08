@@ -66,7 +66,7 @@ const divCartas = (tablero: Tablero, indice: number, elementoImg: HTMLImageEleme
             tablero.indiceCartaVolteadaA !== tablero.indiceCartaVolteadaB) {
             volverCartas(tablero, indice, elementoImg);
         }
-    }, 1200);
+    }, 1500);
 
 }
 

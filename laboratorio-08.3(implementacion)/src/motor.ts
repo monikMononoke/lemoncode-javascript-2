@@ -63,9 +63,9 @@ export const parejaEncontrada = (tablero: Tablero, indiceA: number, indiceB: num
 }
 
 export const parejaNoEncontrada = (tablero: Tablero, indiceA: number, indiceB: number): void => {
-    tablero.cartas[indiceA].encontrada = false;
-    tablero.cartas[indiceB].encontrada = false;
     setTimeout(() => {
+        tablero.cartas[indiceA].encontrada = false;
+        tablero.cartas[indiceB].encontrada = false;
         tablero.estadoPartida = "CeroCartasLevantadas";
         tablero.cartas[indiceA].estaVuelta = false;
         tablero.cartas[indiceB].estaVuelta = false;
