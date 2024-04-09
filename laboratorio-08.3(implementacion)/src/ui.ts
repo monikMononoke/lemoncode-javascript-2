@@ -52,7 +52,7 @@ const mirarSiEsLaSegundaCarta = (tablero: Tablero) => {
     const indiceB = tablero.indiceCartaVolteadaB;
     if (indiceA !== undefined && indiceB !== undefined && tablero.estadoPartida === "DosCartasLevantadas") {
         if (!sonPareja(indiceA, indiceB, tablero)) {
-
+            console.log("NO");
         } else {
             parejaEncontrada(tablero, indiceA, indiceB);
             console.log("SI");
