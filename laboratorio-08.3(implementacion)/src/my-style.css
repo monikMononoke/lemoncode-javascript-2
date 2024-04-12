@@ -22,12 +22,14 @@ body {
 
 .imagenes {
   padding: 10px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
 }
 
 .carta {
   background-color: #77b9f7;
   cursor: pointer;
-  /* transition-timing-function: cubic-bezier(0.1, 0.22, 0.8, 1.13); */
+  transform: rotateY(-180deg);
 }
 
 .empezar {
@@ -56,4 +58,10 @@ body {
   background-color: #679bcb;
   box-shadow: 0 3px #6c6bb1;
   transform: translateY(2px);
+}
+
+.h2 {
+  opacity: 0;
+  color: #6c6bb1;
+  text-align: center;
 }

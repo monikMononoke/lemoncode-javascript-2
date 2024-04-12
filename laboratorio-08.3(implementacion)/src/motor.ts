@@ -35,13 +35,11 @@ export const voltearLaCarta = (tablero: Tablero, indice: number): void => {
 const darLaVueltaALaPrimeraCarta = (tablero: Tablero, indice: number) => {
     tablero.indiceCartaVolteadaA = indice;
     tablero.estadoPartida = "UnaCartaLevantada";
-    console.log("primera carta", tablero.estadoPartida);
 }
 
 const darLaVueltaALaSegundaCarta = (tablero: Tablero, indice: number) => {
     tablero.indiceCartaVolteadaB = indice;
     tablero.estadoPartida = "DosCartasLevantadas";
-    console.log("segunda carta", tablero.estadoPartida);
 }
 
 export const sonPareja = (indiceA: number, indiceB: number, tablero: Tablero): boolean => {
@@ -63,16 +61,16 @@ export const parejaEncontrada = (tablero: Tablero, indiceA: number, indiceB: num
 }
 
 export const parejaNoEncontrada = (tablero: Tablero, indiceA: number, indiceB: number): void => {
-    setTimeout(() => {
-        tablero.cartas[indiceA].encontrada = false;
-        tablero.cartas[indiceB].encontrada = false;
-        tablero.estadoPartida = "CeroCartasLevantadas";
-        tablero.cartas[indiceA].estaVuelta = false;
-        tablero.cartas[indiceB].estaVuelta = false;
-        tablero.indiceCartaVolteadaA = undefined;
-        tablero.indiceCartaVolteadaB = undefined;
-        console.log("HOLA");
-    }, 2000)
+    // setTimeout(() => {
+    tablero.cartas[indiceA].encontrada = false;
+    tablero.cartas[indiceB].encontrada = false;
+    tablero.estadoPartida = "CeroCartasLevantadas";
+    tablero.cartas[indiceA].estaVuelta = false;
+    tablero.cartas[indiceB].estaVuelta = false;
+    tablero.indiceCartaVolteadaA = undefined;
+    tablero.indiceCartaVolteadaB = undefined;
+
+    // }, 2000)
 }
 
 export const esPartidaCompleta = (tablero: Tablero): boolean => tablero.cartas.every(

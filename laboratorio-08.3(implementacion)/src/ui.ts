@@ -1,7 +1,9 @@
-import { Tablero, tablero } from "./modelo";
+import { Tablero, tablero, Carta } from "./modelo";
 import {
     iniciarPartida, sePuedeVoltearLaCarta,
-    voltearLaCarta, sonPareja, parejaEncontrada
+    voltearLaCarta, sonPareja, parejaEncontrada,
+    parejaNoEncontrada,
+    esPartidaCompleta
 } from "./motor";
 
 export const mapearDivs = (tablero: Tablero, indice: number) => {
@@ -30,7 +32,6 @@ const handlerDivCarta = (tablero: Tablero, indice: number, elementoImg: HTMLImag
         voltearLaCarta(tablero, indice);
         volteaCarta(tablero, indice, elementoImg);
         mirarSiEsLaSegundaCarta(tablero);
-        divCartas(tablero, indice, elementoImg);
     }
 }
 
@@ -45,46 +46,69 @@ const mostrarImagenAnimal = (imgUrl: string, elementoImg: HTMLImageElement) => {
     elementoImg.style.transform = "rotateY(180deg)";
     elementoImg.style.transformStyle = "preserve-3d";
     elementoImg.style.backgroundColor = "#B799FF";
+    elementoImg.style.backfaceVisibility = "visible";
 }
 
 const mirarSiEsLaSegundaCarta = (tablero: Tablero) => {
     const indiceA = tablero.indiceCartaVolteadaA;
     const indiceB = tablero.indiceCartaVolteadaB;
     if (indiceA !== undefined && indiceB !== undefined && tablero.estadoPartida === "DosCartasLevantadas") {
-        if (!sonPareja(indiceA, indiceB, tablero)) {
-            console.log("NO");
-        } else {
+        if (sonPareja(indiceA, indiceB, tablero)) {
             parejaEncontrada(tablero, indiceA, indiceB);
-            console.log("SI");
+            if (esPartidaCompleta(tablero)) {
+                mostrarQueLaPartidaHaTerminado();
+                voltearTodasLasCartas(tablero.cartas);
+            }
+        } else {
+            parejaNoEncontrada(tablero, indiceA, indiceB);
+            volterLasCartasQueNoSonPareja(tablero.cartas)
         }
     }
 }
 
-const divCartas = (tablero: Tablero, indice: number, elementoImg: HTMLImageElement) => {
+const darleLaVueltaALaCarta = (indice: number) => {
+    const imagenIndiceId = `[data-index-img='${indice}']`;
+    const elementoImagen = document.querySelector(`img${imagenIndiceId}`);
+    if (elementoImagen && elementoImagen instanceof HTMLImageElement) {
+        elementoImagen.style.transform = "";
+        elementoImagen.style.transition = "";
+        elementoImagen.style.backgroundColor = "#77b9f7";
+        elementoImagen.style.backfaceVisibility = "hidden";
+    }
+}
+
+const ponerImagenBocaAbajo = (cartas: Carta[]) => {
+    for (let i = 0; i < cartas.length; i++) {
+        if (!cartas[i].encontrada && !cartas[i].estaVuelta) {
+            darleLaVueltaALaCarta(i);
+        }
+    }
+}
+
+const volterLasCartasQueNoSonPareja = (cartas: Carta[]) => {
     setTimeout(() => {
-        if (!tablero.cartas[indice].encontrada &&
-            tablero.indiceCartaVolteadaA !== tablero.indiceCartaVolteadaB) {
-            volverCartas(tablero, indice, elementoImg);
-        }
-    }, 1500);
-
+        ponerImagenBocaAbajo(cartas);
+    }, 1000);
 }
 
-const volverCartas = (tablero: Tablero, indice: number, elementoImg: HTMLImageElement) => {
-    let urlImagen = tablero.cartas[indice].imagen;
-    esconderImagenAnimal(urlImagen, elementoImg);
-}
-
-
-const esconderImagenAnimal = (urlImagen: string, elementoImg: HTMLImageElement) => {
-    elementoImg.src = urlImagen;
-    const divCarta = elementoImg.parentElement;
-    if (divCarta && divCarta instanceof HTMLDivElement) {
-        elementoImg.style.display = "none";
-        divCarta.style.display = "block";
-        divCarta.style.transform = "rotateY(-180deg)";
-        divCarta.style.transformStyle = "preserve-3d";
+const mostrarQueLaPartidaHaTerminado = () => {
+    const h3 = document.querySelector('.h2');
+    if (h3 && h3 instanceof HTMLDivElement) {
+        h3.style.opacity = "1";
     }
+}
+
+const ponerLasCartasBocaAbajo = (cartas: Carta[]) => {
+    for (let i = 0; i < cartas.length; i++) {
+        darleLaVueltaALaCarta(i);
+    }
+
+}
+
+const voltearTodasLasCartas = (cartas: Carta[]) => {
+    setTimeout(() => {
+        ponerLasCartasBocaAbajo(cartas);
+    }, 1000)
 }
 
 //botón iniciar partida
