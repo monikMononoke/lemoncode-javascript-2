@@ -1,4 +1,4 @@
-import { LineaTicket, ResultadoLineaTicket, ResultadoTotalTicket, TotalPorTipoIva } from "./modelo";
+import { LineaTicket, ResultadoLineaTicket, ResultadoTotalTicket } from "./modelo";
 import { calcularPrecioConIva } from "./precioConIva";
 import { ivaDelProducto } from "./calculaIva";
 
