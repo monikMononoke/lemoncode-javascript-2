@@ -14,7 +14,7 @@ export const calculaTicket = (lineasTicket: LineaTicket[]) => {
   for (let i = 0; i < lineasTicket.length; i++) {
     resultadoTotales.totalSinIva += (lineasTicket[i].producto.precio * lineasTicket[i].cantidad);
     resultadoTotales.totalConIva += (calcularPrecioConIva(lineasTicket[i].producto) * lineasTicket[i].cantidad);
-    resultadoTotales.totalIva += ivaDelProducto(lineasTicket[i].producto);
+    resultadoTotales.totalIva += ivaDelProducto(lineasTicket[i].producto) * lineasTicket[i].cantidad;
 
     resultadoLineas.push({
       nombre: lineasTicket[i].producto.nombre,
