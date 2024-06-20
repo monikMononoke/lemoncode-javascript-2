@@ -1,36 +1,58 @@
-import { LineaTicket, ResultadoLineaTicket, ResultadoTotalTicket } from "./modelo";
-import { calcularPrecioConIva } from "./precioConIva";
-import { ivaDelProducto } from "./calculaIva";
+import { LineaTicket, ResultadoLineaTicket, TicketFinal } from "./modelo";
+import { calcularPrecioConIva, calculoTotalPorTipoDeIva } from "./helpers";
 
-let resultadoLineas: ResultadoLineaTicket[] = [];
+export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
+  const subTotal = calcularSubtotalProductos(lineasTicket);
+  const totalIva = calcularIva(lineasTicket);
 
-const resultadoTotales: ResultadoTotalTicket = {
-  totalSinIva: 0,
-  totalConIva: 0,
-  totalIva: 0
-}
-
-export const calculaTicket = (lineasTicket: LineaTicket[]) => {
-  for (let i = 0; i < lineasTicket.length; i++) {
-    resultadoTotales.totalSinIva += (lineasTicket[i].producto.precio * lineasTicket[i].cantidad);
-    resultadoTotales.totalConIva += (calcularPrecioConIva(lineasTicket[i].producto) * lineasTicket[i].cantidad);
-    resultadoTotales.totalIva += ivaDelProducto(lineasTicket[i].producto) * lineasTicket[i].cantidad;
-
-    resultadoLineas.push({
-      nombre: lineasTicket[i].producto.nombre,
-      cantidad: lineasTicket[i].cantidad,
-      precioSinIva: lineasTicket[i].producto.precio,
-      tipoIva: lineasTicket[i].producto.tipoIva,
-      precioConIva: calcularPrecioConIva(lineasTicket[i].producto)
-    }
-    )
-  }
-
-  return ({
-    resultadoTotales,
-    resultadoLineas
-  });
-
-
+  return {
+    lineas: crearListadoResultadoLineasTicket(lineasTicket),
+    total: {
+      totalSinIva: subTotal,
+      totalIva: totalIva,
+      totalConIva: subTotal + totalIva,
+    },
+    desgloseIva: calculoTotalPorTipoDeIva(lineasTicket),
+  };
 };
 
+const crearListadoResultadoLineasTicket = (
+  lineasTicket: LineaTicket[]
+): ResultadoLineaTicket[] => {
+  let resultadoLineas: ResultadoLineaTicket[] = [];
+  for (let i = 0; i < lineasTicket.length; i++) {
+    resultadoLineas = añadirProductoAResultadoLineas(lineasTicket[i]);
+  }
+  return resultadoLineas;
+};
+
+const calcularSubtotalProductos = (lineasTicket: LineaTicket[]): number => {
+  let subtotal: number = 0;
+  for (let i = 0; i < lineasTicket.length; i++) {
+    subtotal += lineasTicket[i].producto.precio * lineasTicket[i].cantidad;
+  }
+  return subtotal;
+};
+
+const calcularIva = (lineasTicket: LineaTicket[]): number => {
+  let totalIva: number = 0;
+  for (let i = 0; i < lineasTicket.length; i++) {
+    totalIva +=
+      calcularPrecioConIva(lineasTicket[i].producto);
+  }
+  return totalIva;
+};
+
+const añadirProductoAResultadoLineas = (lineaTicket: LineaTicket) => {
+  let resultadoLineas: ResultadoLineaTicket[] = [];
+
+  resultadoLineas.push({
+    nombre: lineaTicket.producto.nombre,
+    cantidad: lineaTicket.cantidad,
+    precioSinIva: lineaTicket.producto.precio,
+    tipoIva: lineaTicket.producto.tipoIva,
+    precioConIva: calcularPrecioConIva(lineaTicket.producto),
+  });
+
+  return resultadoLineas;
+};
