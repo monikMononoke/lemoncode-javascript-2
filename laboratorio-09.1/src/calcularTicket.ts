@@ -1,29 +1,28 @@
 import { LineaTicket, ResultadoLineaTicket, TicketFinal } from "./modelo";
-import { calcularPrecioConIva, calculoTotalPorTipoDeIva, ivaDelProducto } from "./helpers";
+import { ivaDelProducto, calcularPrecioConIva, calculoTotalPorTipoDeIva } from "./calculaTicket.heper"
+
+
+
+
 
 export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
-  const subTotal = calcularSubtotalProductos(lineasTicket);
-  const totalIva = calcularIva(lineasTicket);
+  const lineasDelTicket = crearLineasTicket(lineasTicket);
+  const subtotal = calcularSubtotalProductos(lineasTicket);
+  const totalIva = calcularTotalIvaProductos(lineasTicket);
 
-  return {
+
+
+  return ({
+    lineas: lineasDelTicket,
     total: {
-      totalSinIva: subTotal,
+      totalSinIva: subtotal,
       totalIva: totalIva,
-      totalConIva: subTotal + totalIva,
+      totalConIva: subtotal + totalIva
     },
-    lineas: crearListadoResultadoLineasTicket(lineasTicket),
-    desgloseIva: calculoTotalPorTipoDeIva(lineasTicket),
-  };
-};
+    desgloseIva: calculoTotalPorTipoDeIva(lineasTicket)
+  });
 
-const crearListadoResultadoLineasTicket = (
-  lineasTicket: LineaTicket[]
-): ResultadoLineaTicket[] => {
-  let resultadoLineas: ResultadoLineaTicket[] = [];
-  for (let i = 0; i < lineasTicket.length; i++) {
-    resultadoLineas = añadirProductoAResultadoLineas(lineasTicket[i]);
-  }
-  return resultadoLineas;
+
 };
 
 
@@ -31,20 +30,22 @@ const calcularSubtotalProductos = (lineasTicket: LineaTicket[]): number => linea
   return acc += lineaTicket.producto.precio * lineaTicket.cantidad
 }, 0)
 
-const calcularIva = (lineasTicket: LineaTicket[]): number => lineasTicket.reduce((totalIva: number, lineaTicket: LineaTicket) => {
+const calcularTotalIvaProductos = (lineasTicket: LineaTicket[]): number => lineasTicket.reduce((totalIva: number, lineaTicket: LineaTicket) => {
   return totalIva += (lineaTicket.cantidad * ivaDelProducto(lineaTicket.producto));
 }, 0)
 
-
-const añadirProductoAResultadoLineas = (lineaTicket: LineaTicket) => {
+const crearLineasTicket = (lineasTicket: LineaTicket[]): ResultadoLineaTicket[] => {
   let resultadoLineas: ResultadoLineaTicket[] = [];
-  resultadoLineas.push({
-    nombre: lineaTicket.producto.nombre,
-    cantidad: lineaTicket.cantidad,
-    precioSinIva: lineaTicket.producto.precio,
-    tipoIva: lineaTicket.producto.tipoIva,
-    precioConIva: calcularPrecioConIva(lineaTicket.producto),
-  });
+  for (let i = 0; i < lineasTicket.length; i++) {
+    resultadoLineas.push({
+      nombre: lineasTicket[i].producto.nombre,
+      cantidad: lineasTicket[i].cantidad,
+      precioSinIva: lineasTicket[i].producto.precio,
+      tipoIva: lineasTicket[i].producto.tipoIva,
+      precioConIva: calcularPrecioConIva(lineasTicket[i].producto)
+    }
+    )
+  }
 
   return resultadoLineas;
-};
+}

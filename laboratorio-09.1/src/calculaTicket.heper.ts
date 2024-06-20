@@ -1,5 +1,6 @@
 
-import { Producto, listaTiposIva, TotalPorTipoIva, LineaTicket } from "./modelo";
+import { Producto } from "./modelo";
+import { LineaTicket, TotalPorTipoIva, listaTiposIva } from "./modelo"
 
 
 export const porcentajeIva = (stringIva: string
@@ -40,6 +41,7 @@ export const ivaDelProducto = (producto: Producto): number => {
     return ivaDelProducto;
 }
 
+
 export const calcularPrecioConIva = (producto: Producto): number => {
     const precio = producto.precio;
     const iva = ivaDelProducto(producto);
@@ -50,13 +52,12 @@ export const calcularPrecioConIva = (producto: Producto): number => {
 }
 
 
-
 export const calculoTotalPorTipoDeIva = (
     lineasTicket: LineaTicket[]
 ): TotalPorTipoIva[] => {
 
     return listaTiposIva.map(tipoIva => {
-        const tipoDeIvaProducto = lineasTicket.find(lineaTicket => {
+        const tipoDeIvaProducto = lineasTicket.filter(lineaTicket => {
             lineaTicket.producto.tipoIva === tipoIva
         })
 
@@ -73,7 +74,6 @@ export const calculoTotalPorTipoDeIva = (
 
 
 const cuantiaPorTipoDeIva = (lineasTicket: LineaTicket[]): number => {
-
 
     return lineasTicket.reduce((cuantia: number, lineasTicket: LineaTicket) => {
 

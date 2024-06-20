@@ -1,4 +1,4 @@
-import { porcentajeIva, calcularPrecioConIva } from "./helpers";
+import { porcentajeIva, calcularPrecioConIva } from "./calculaTicket.heper";
 import { Producto } from "./modelo";
 
 
