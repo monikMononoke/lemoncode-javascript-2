@@ -55,7 +55,7 @@ export const calcularPrecioConIva = (producto: Producto): number => {
 export const calculoTotalPorTipoDeIva = (
     lineasTicket: LineaTicket[]
 ): TotalPorTipoIva[] => {
-    const a = listaTiposIva.map((tipoIva) => {
+    return listaTiposIva.map((tipoIva) => {
         // listaTiposIva => "general, superReducidoA..."
         const listaProductosPorTipoIva = lineasTicket.filter(
             (lineaTicket) => lineaTicket.producto.tipoIva === tipoIva
@@ -67,7 +67,7 @@ export const calculoTotalPorTipoDeIva = (
             cuantia: totalDeIvaPorProductos,
         };
     });
-    return a;
+
 };
 
 
