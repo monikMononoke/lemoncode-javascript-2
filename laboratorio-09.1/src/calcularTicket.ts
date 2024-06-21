@@ -8,9 +8,7 @@ import { ivaDelProducto, calcularPrecioConIva, calculoTotalPorTipoDeIva } from "
 export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
   const lineasDelTicket = crearLineasTicket(lineasTicket);
   const subtotal = calcularSubtotalProductos(lineasTicket);
-  const totalIva = calcularTotalIvaProductos(lineasTicket);
-
-
+  const totalIva = parseFloat(calcularTotalIvaProductos(lineasTicket).toFixed(2));
 
   return ({
     lineas: lineasDelTicket,
@@ -35,17 +33,13 @@ const calcularTotalIvaProductos = (lineasTicket: LineaTicket[]): number => linea
 }, 0)
 
 const crearLineasTicket = (lineasTicket: LineaTicket[]): ResultadoLineaTicket[] => {
-  let resultadoLineas: ResultadoLineaTicket[] = [];
-  for (let i = 0; i < lineasTicket.length; i++) {
-    resultadoLineas.push({
-      nombre: lineasTicket[i].producto.nombre,
-      cantidad: lineasTicket[i].cantidad,
-      precioSinIva: lineasTicket[i].producto.precio,
-      tipoIva: lineasTicket[i].producto.tipoIva,
-      precioConIva: calcularPrecioConIva(lineasTicket[i].producto)
+  return lineasTicket.map(lineas => {
+    return {
+      nombre: lineas.producto.nombre,
+      cantidad: lineas.cantidad,
+      precioSinIva: lineas.producto.precio,
+      tipoIva: lineas.producto.tipoIva,
+      precioConIva: calcularPrecioConIva(lineas.producto)
     }
-    )
-  }
-
-  return resultadoLineas;
+  })
 }

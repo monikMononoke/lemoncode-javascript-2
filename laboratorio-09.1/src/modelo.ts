@@ -7,7 +7,7 @@ export type TipoIva =
     | "sinIva";
 
 
-export const listaTiposIva = [
+export const listaTiposIva: TipoIva[] = [
     "general",
     "reducido",
     "superreducidoA",

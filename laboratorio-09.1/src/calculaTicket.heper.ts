@@ -1,5 +1,5 @@
 
-import { Producto, productos } from "./modelo";
+import { Producto } from "./modelo";
 import { LineaTicket, TotalPorTipoIva, listaTiposIva } from "./modelo"
 
 
@@ -60,7 +60,9 @@ export const calculoTotalPorTipoDeIva = (
         const listaProductosPorTipoIva = lineasTicket.filter(
             (lineaTicket) => lineaTicket.producto.tipoIva === tipoIva
         );
-        const totalDeIvaPorProductos = calculoDeTotalIva(listaProductosPorTipoIva, tipoIva);
+
+        const totalDeIvaPorProductos = parseFloat(calculoDeTotalIva(listaProductosPorTipoIva, tipoIva).toFixed(2));
+
         // calcular
         return {
             tipoIva: tipoIva,
@@ -80,8 +82,6 @@ const calculoDeTotalIva = (lineasTicket: LineaTicket[], tipoIva: string): number
         const ivaDelProducto = (lineasTicket.producto.precio * iva) / 100;
 
         return cuantia += (ivaDelProducto * lineasTicket.cantidad);
-
-
 
     }, 0)
 }
