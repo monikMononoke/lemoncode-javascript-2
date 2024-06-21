@@ -1,10 +1,6 @@
 import { LineaTicket, ResultadoLineaTicket, TicketFinal } from "./modelo";
 import { ivaDelProducto, calcularPrecioConIva, calculoTotalPorTipoDeIva } from "./calculaTicket.heper"
 
-
-
-
-
 export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
   const lineasDelTicket = crearLineasTicket(lineasTicket);
   const subtotal = calcularSubtotalProductos(lineasTicket);
@@ -19,8 +15,6 @@ export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
     },
     desgloseIva: calculoTotalPorTipoDeIva(lineasTicket)
   });
-
-
 };
 
 
@@ -28,9 +22,11 @@ const calcularSubtotalProductos = (lineasTicket: LineaTicket[]): number => linea
   return acc += lineaTicket.producto.precio * lineaTicket.cantidad
 }, 0)
 
+
 const calcularTotalIvaProductos = (lineasTicket: LineaTicket[]): number => lineasTicket.reduce((totalIva: number, lineaTicket: LineaTicket) => {
   return totalIva += (lineaTicket.cantidad * ivaDelProducto(lineaTicket.producto));
 }, 0)
+
 
 const crearLineasTicket = (lineasTicket: LineaTicket[]): ResultadoLineaTicket[] => {
   return lineasTicket.map(lineas => {
