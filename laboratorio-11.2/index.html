@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extraer enlace imagen</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Extraer enlaces a imágenes</h1>
+      <form id="formulario">
+        <textarea
+          id="texto"
+          rows="20"
+          placeholder="Pega aquí el código HTML"
+        ></textarea>
+        <br />
+        <input type="submit" value="Extraer imágenes" />
+      </form>
+      <div id="resultado"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
