@@ -49,7 +49,13 @@ export class reservaParticular extends ReservaHotel {
 
     calcularSubtotal() {
         const subtotal = super.calcularSubtotal();
-        return subtotal + this.costeAdicional;
+        const pax = this.getPax().reduce((acc, pax) => acc + pax, 0);
+
+        if (pax > 1) {
+            return subtotal + this.costeAdicional;
+        } else {
+            return subtotal;
+        }
     }
 
     calcularTotal() {
