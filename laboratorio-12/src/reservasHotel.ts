@@ -34,7 +34,8 @@ export class ReservaHotel {
     }
 
     calcularTotal() {
-        this.total = this.calcularSubtotal() * (1 + this.iva / 100);
+        this.subtotal = this.calcularSubtotal();
+        this.total = this.subtotal + (this.subtotal * this.iva / 100);
         return this.total;
     }
 }
@@ -48,18 +49,23 @@ export class reservaParticular extends ReservaHotel {
     }
 
     calcularSubtotal() {
-        const subtotal = super.calcularSubtotal();
-        const pax = this.getPax().reduce((acc, pax) => acc + pax, 0);
+        this.subtotal = super.calcularSubtotal();
+        const pax = this.getPax();
 
-        if (pax > 1) {
-            return subtotal + this.costeAdicional;
-        } else {
-            return subtotal;
-        }
+        pax.forEach(pax => {
+            if (pax > 1) {
+                this.subtotal += this.costeAdicional;
+            } else {
+                this.subtotal += 0;
+            }
+        })
+
+        return this.subtotal;
     }
 
     calcularTotal() {
-        this.total = this.calcularSubtotal() * (1 + this.iva / 100);
+        this.subtotal = this.calcularSubtotal();
+        this.total = this.subtotal + (this.subtotal * this.iva / 100);
         return this.total;
     }
 }
@@ -72,12 +78,15 @@ export class reservaOperador extends ReservaHotel {
     }
 
     calcularSubtotal() {
-        const subtotal = super.calcularSubtotal();
-        return subtotal - (subtotal * this.descuentoAdicional) / 100;
+        this.subtotal = this.reservas.reduce((acc, reserva) => {
+            return acc + reserva.noches * 100;
+        }, 0);
+        return this.subtotal;
     }
 
     calcularTotal() {
-        this.total = this.calcularSubtotal() * (1 + this.iva / 100);
+        const subtotal = this.calcularSubtotal();
+        this.total = subtotal + (subtotal * this.iva / 100);
         return this.total;
     }
 }
