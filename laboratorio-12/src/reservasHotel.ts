@@ -25,9 +25,9 @@ export class ReservaHotel {
     calcularSubtotal() {
         this.subtotal = this.reservas.reduce((acc, reserva) => {
             if (reserva.tipoHabitacion === "standard") {
-                return acc + reserva.noches * 100;
+                return acc + (reserva.noches * 100);
             } else {
-                return acc + reserva.noches * 150;
+                return acc + (reserva.noches * 150);
             }
         }, 0);
         return this.subtotal;
