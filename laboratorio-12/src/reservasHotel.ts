@@ -4,6 +4,7 @@ export class ReservaHotel {
     iva = 21;
     subtotal = 0;
     total = 0;
+    _desayuno = 15;
     reservas: Reserva[] = [];
 
     constructor(reservas: Reserva[]) {
@@ -87,6 +88,6 @@ export class reservaOperador extends ReservaHotel {
     calcularTotal() {
         const subtotal = this.calcularSubtotal();
         this.total = subtotal + (subtotal * this.iva / 100);
-        return this.total;
+        return this.total - (this.total * this.descuentoAdicional / 100);
     }
 }
