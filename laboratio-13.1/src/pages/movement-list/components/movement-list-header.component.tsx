@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from './movement-list-header.component.module.css';
-import { AccountVm } from '../../account-list/account-list.vm';
+
 import { getAccountList } from '@/pages/account-list/api';
 import { mapAccountListFromApiToVm } from '@/pages/account-list/account-list.mapper';
 import { useParams } from 'react-router-dom';
+import { AccountVm } from '../movement-list.vm';
 
 export const MovementListHeaderComponent: React.FC = () => {
   const { id } = useParams();
