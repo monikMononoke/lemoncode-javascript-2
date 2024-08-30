@@ -1,0 +1,19 @@
+.grid-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.header-table {
+  display: grid;
+  grid-template-columns: 15% 15% 27% 13% auto;
+  gap: 1px;
+  color: var(--table-header-color);
+}
+
+.header-cell {
+  padding: 10px;
+  color: var(--table-header-color);
+  background-color: var(--table-header-background-color);
+  font-size: var(--table-header-font-size);
+  font-weight: var(--table-header-font-weight);
+}

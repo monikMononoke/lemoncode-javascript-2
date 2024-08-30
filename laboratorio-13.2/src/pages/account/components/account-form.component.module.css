@@ -1,0 +1,47 @@
+.error {
+  color: var(--error_color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.form input {
+  width: 200px;
+}
+
+.form select {
+  width: 200px;
+}
+
+.wrapper {
+  border-bottom: 1px solid var(--secondary_color);
+  margin-bottom: 1rem;
+}
+
+.wrapper div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 20%;
+}
+
+.wrapper div p {
+  min-width: 250px;
+}
+
+.button {
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper div {
+    margin-right: 0px;
+  }
+}
